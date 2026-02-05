@@ -8,6 +8,29 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Initialize storage API for the app
+      window.storage = {
+        async get(key, isPublic = false) {
+          try {
+            const value = localStorage.getItem(key);
+            return { value: value || null };
+          } catch (e) {
+            console.error('Storage get error:', e);
+            return { value: null };
+          }
+        },
+        async set(key, value, isPublic = false) {
+          try {
+            localStorage.setItem(key, value);
+            return { success: true };
+          } catch (e) {
+            console.error('Storage set error:', e);
+            throw e;
+          }
+        }
+      };
+    </script>
     <script type="module" src="./src/main.jsx"></script>
   </body>
 </html>
